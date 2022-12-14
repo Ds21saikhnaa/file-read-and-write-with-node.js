@@ -1,0 +1,9 @@
+apple=алим
+azure=мөобы
+aa=хуөүш
+ball=бөмбөг
+show=цас
+data=өгөгдөл
+dog=нохой
+cat=муур
+mom=ээж
