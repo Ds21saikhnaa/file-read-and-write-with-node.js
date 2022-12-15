@@ -16,7 +16,7 @@ const rl = readline.createInterface({
 });
 
 console.log('Энэ бол толь бичиг'.rainbow); // rainbow
-const mirror = (choice) => {
+const mirror = () => {
   console.log('0. Үг нэмэх');
   console.log('1. Үг хайх');
   console.log('2. Олон сонголтоос харах');
