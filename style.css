@@ -1,0 +1,35 @@
+.gray{
+  background-color: gray;
+}
+.blue{
+  background-color: #1a73e8;
+}
+.flex{
+  display: flex;
+}
+
+.a-center{
+  align-items: center;
+}
+
+.j-content{
+  justify-content: center;
+}
+
+.row{
+  flex-direction: row;
+}
+
+.column{
+  flex-direction: column;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  height: 100vh;
+  width: 100vw;
+}

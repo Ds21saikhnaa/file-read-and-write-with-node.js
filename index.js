@@ -1,34 +1,82 @@
 const fs = require("fs");
+const readline = require('readline');
+const colors = require('colors');
+const { on } = require("stream");
 
 //file-aa unshih
 let data = fs.readFileSync('./text.txt',
   { encoding: 'utf8', flag: 'r' });
 data = data.split('\n');
+
 let arr = [];
 
-//input der ashiglah
-const onChange = (value) => {
-  for (let word of data) {
-    if (word.includes(value) === true) {
-      arr.push(word.split('=')[0]);
-    }
-  }
-  return arr.sort();
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+console.log('Энэ бол толь бичиг'.rainbow); // rainbow
+const mirror = (choice) => {
+  console.log('0. Үг нэмэх');
+  console.log('1. Үг хайх');
+  console.log('2. Олон сонголтоос харах');
+  rl.question('дээрээх сонголтуудаас сонго(тоогоор):'.bgCyan, (num) => {
+    if (num == 0) newWord();
+    else if (num == 1) translate();
+    else if (num == 2) onChange();
+    else rl.close();;
+  });
 }
-console.log(onChange("a"));
 
-// ug haih
+//shine ug nemeh
+const newWord = () => {
+  rl.question('англи үгээр оруул!!!(латинaaр):', (eng) => {
+    rl.question('монгол үгээр оруул!!!(криллээр): ', (mon) => {
+      fs.appendFileSync('text.txt', `\n${eng}=${mon}`);
+      console.log('Амжилттай!'.rainbow); // rainbow
+      rl.close();
+    });
+  });
+}
 
-// const test = (check) => {
-//   for (let word of data) {
-//     if (word.split('=')[0] === check) return word.split('=')[1]
-//   }
-//   return "ug oldsongu"
-// }
+//haih
+const translate = () => {
+  rl.question('англи үгээ оруул(латинaaр):', (eng) => {
+    const result = test(eng);
+    console.log(result.bgCyan);
+    rl.close();
+  });
+}
 
-// const eng = "mom";
-// const mon = "ээж";
-// console.log(test("mom"));
+rl.on('close', function () {
+  console.log('\nBYE!!!'.rainbow);
+  process.exit(0);
+});
 
-//ug nemeh
-// fs.appendFileSync('text.txt', `\n${eng}=${mon}`);
+
+//input der ashiglah
+const onChange = () => {
+  rl.question('англи үгэнд орох үсгийг бич(латинaaр):', (letter) => {
+    for (let word of data) {
+      if (word.includes(letter) === true) {
+        arr.push(`${word.split('=')[0]} = ${word.split('=')[1]}`);
+      }
+    }
+    if (!arr.length) {
+      console.log("олдсонгүй!!!".bgCyan);
+      rl.close();
+    } else {
+      arr = arr.sort();
+      for (let i = 0; i < arr.length; i++) console.log(arr[i].bgCyan, "\n");
+      rl.close();
+    }
+  });
+}
+const test = (check) => {
+  for (let word of data) {
+    if (word.split('=')[0] === check) return word.split('=')[1]
+  }
+  return "олдсонгүй!!!"
+}
+
+mirror();
