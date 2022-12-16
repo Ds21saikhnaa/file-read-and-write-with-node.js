@@ -1,6 +1,5 @@
 apple=алим
 azure=мөобы
-aa=хуөүш
 ball=бөмбөг
 show=цас
 data=өгөгдөл
@@ -13,3 +12,4 @@ cow=үхэр
 time=цаг
 fds=ыөбы
 bald=халзан
+sister=эгч

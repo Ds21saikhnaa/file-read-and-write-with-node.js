@@ -1,7 +1,6 @@
 const fs = require("fs");
 const readline = require('readline');
 const colors = require('colors');
-const { on } = require("stream");
 
 //file-aa unshih
 let data = fs.readFileSync('./text.txt',
@@ -20,10 +19,12 @@ const mirror = () => {
   console.log('0. Үг нэмэх');
   console.log('1. Үг хайх');
   console.log('2. Олон сонголтоос харах');
+  console.log('3. Үг устгах');
   rl.question('дээрээх сонголтуудаас сонго(тоогоор):'.bgCyan, (num) => {
     if (num == 0) newWord();
     else if (num == 1) translate();
     else if (num == 2) onChange();
+    else if (num == 3) deleteWord();
     else rl.close();;
   });
 }
@@ -72,6 +73,29 @@ const onChange = () => {
     }
   });
 }
+
+const deleteWord = () => {
+  rl.question('ustagah ugee oruul(латинaaр):', (eng) => {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].split('=')[0] === eng) {
+        data.splice(i, 1);
+        try {
+          fs.writeFileSync('text.txt', data[0]);
+          for (let j = 1; j < data.length; j++) {
+            fs.appendFileSync('text.txt', `\n${data[j]}`);
+          }
+          console.log("amjilttai".underline);
+        } catch (err) {
+          console.log(err);
+        }
+        rl.close();
+      }
+    }
+    console.log("oldsongu".bgCyan);
+    rl.close();
+  });
+}
+
 const test = (check) => {
   for (let word of data) {
     if (word.split('=')[0] === check) return word.split('=')[1]
